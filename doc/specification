@@ -1,0 +1,30 @@
+Miracle Inspirations
+
+
+-- 2014/02/07 v0.1 --
+To record inspirations (mainly texts) with date stamped.
+
+Target group: me alone.
+
+Specification:
+
+--------------------
+|Input    | Button |
+--------------------
+|List of recordings|
+|                  |
+|                  |
+--------------------
+
+Type in input -> press button -> recording shown
+
+recording is like£º
+
+------------------
+|text  text  text|
+|(date time)     |
+------------------
+
+This is version 0.1. The user can only type and add a recording. They 
+cannot delete or modify any recording. The added recording will be 
+shown at once.
