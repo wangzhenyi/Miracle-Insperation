@@ -1,7 +1,22 @@
 Miracle Inspirations
 
 
--- 2014/02/07 v0.1 --
+
+-- 2014/12/15 v0.2--
+Use database.
+
+table structure - miracle_insperations {
+	INT PK AI
+	DATE TIMEStAMP
+	CONTENT VARCHAR(5000)
+	DELETED BOOL
+	
+More TODO:
+	Redesign the views for innovation
+}
+
+
+-- 2014/12/07 v0.1 --
 To record inspirations (mainly texts) with date stamped.
 
 Target group: me alone.
