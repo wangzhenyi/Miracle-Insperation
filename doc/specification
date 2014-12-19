@@ -1,8 +1,12 @@
 Miracle Inspirations
 
+-- 2014/12/19 v0.21 --
+Bug fix
+	time display error 
+		fix: date format int->long
+		& in Insperation.getFormatedDate(), new Date()->date
 
-
--- 2014/12/15 v0.2--
+-- 2014/12/15 v0.2 --
 Use database.
 
 table structure - miracle_insperations {

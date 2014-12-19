@@ -81,18 +81,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		// Adds items to vectors
 		do {
 			int id = c.getInt(c.getColumnIndexOrThrow(InsperatioinEntry._ID));
-			int dateLong = c.getInt(c
+			long dateLong = c.getLong(c
 					.getColumnIndexOrThrow(InsperatioinEntry.COLUMN_NAME_DATE));
 			Date date = new Date(dateLong);
 			String content = c
 					.getString(c
 							.getColumnIndexOrThrow(InsperatioinEntry.COLUMN_NAME_CONTENT));
-			insperations.add(new Insperation(id, date, content));
+			Insperation insperation = new Insperation(id, date, content);
+			insperations.add(insperation);
 		} while (c.moveToNext());
 
 		// Closes cursor and repository 
 		c.close();
 		db.close();
+		
 
 		return insperations;
 	}
@@ -110,8 +112,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 		for (Insperation insperation : insperations)
 			addInsperationToDisplay(insperation);
 		
-		Log.e("Runnable", "c:"+new Date().getTime());
-		
 		// Scrolls to the bottom
 		scrollToBottom();
 	}
@@ -120,9 +120,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	private void scrollToBottom() {
 		mScrollView.post( new Runnable() {
 	        public void run() { 
-	        	Log.e("Runnable", "a:"+new Date().getTime());
 	        	boolean b = mScrollView.fullScroll(ScrollView.FOCUS_DOWN); 
-	        	Log.e("Runnable", b+":"+new Date().getTime());
 	        }
 		});
 	}
@@ -306,9 +304,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 	private void scrollToBottom(long delay) {
 		mScrollView.postDelayed( new Runnable() {
 	        public void run() { 
-	        	Log.e("Runnable", "a:"+new Date().getTime());
 	        	boolean b = mScrollView.fullScroll(ScrollView.FOCUS_DOWN); 
-	        	Log.e("Runnable", b+":"+new Date().getTime());
 	        }
 		}, delay);
 	}

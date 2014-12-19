@@ -79,8 +79,8 @@ public class Insperation {
 	 */
 	private String getFormatedDate(String formatStr) {
 		SimpleDateFormat format = new SimpleDateFormat(formatStr);
-		String date = format.format(new Date());
-		return date;
+		String dateStr = format.format(date);
+		return dateStr;
 	}
 
 	/**
