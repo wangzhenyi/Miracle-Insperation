@@ -1,12 +1,29 @@
 Miracle Inspirations
 
--- 2014/12/19 v0.21 --
+[2014-12-?? v0.4]
+Gesture support?
+voice record?
+new look?
+delete undo?
+swipe view for deleted items?
+
+[2014-12-22 v0.3]
+Add delete and copy functions
+	redesigned with ListView
+	Added long press topup menu
+		allowed delete single
+		allowed copy single content
+
+Gesture support, voice record and a new display have been postponed.
+
+
+[2014/12/19 v0.21]
 Bug fix
 	time display error 
 		fix: date format int->long
 		& in Insperation.getFormatedDate(), new Date()->date
 
--- 2014/12/15 v0.2 --
+[2014/12/15 v0.2]
 Use database.
 
 table structure - miracle_insperations {
@@ -20,7 +37,7 @@ More TODO:
 }
 
 
--- 2014/12/07 v0.1 --
+[2014/12/07 v0.1]
 To record inspirations (mainly texts) with date stamped.
 
 Target group: me alone.

@@ -1,7 +1,5 @@
 package com.wangzhenyi.miracleinsperation;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -20,8 +18,11 @@ import android.widget.TextView;
 public class Insperation {
 	private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd\n HH:mm";
 	private int id;
+	public final static int ID_UNIMPLEMENTED = -1;
+	private Date date;
+	private String content;
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -45,31 +46,29 @@ public class Insperation {
 		this.content = content;
 	}
 
-	private Date date;
-	private String content;
 
 	/**
 	 * Constructor with the content as parameter, use current date as default
 	 */
 	public Insperation(String content) {
-		this(new Date(), content);
+		this(ID_UNIMPLEMENTED, new Date(), content);
 	}
 
 	/**
 	 * Constructor with both content and date as parameter
 	 */
 	public Insperation(Date date, String content) {
+		this(ID_UNIMPLEMENTED, date, content);
+	}
+
+	public Insperation(int id, Date date, String content) {
+		setId(id);
 		setDate(date);
 		setContent(content);
 	}
 
-	public Insperation(int id, Date date, String content) {
-		this(date,content);
-		setId(id);
-	}
-
 	/* Returns a String representation of the date with the default format */
-	private String getFormatedDate() {
+	public String getFormatedDate() {
 		return getFormatedDate(DEFAULT_DATE_FORMAT);
 	}
 	
@@ -77,8 +76,9 @@ public class Insperation {
 	 * Returns a string representing the date, with a specific format e.g.
 	 * default "yyyy-MM-dd HH:mm"
 	 */
+	@SuppressLint("SimpleDateFormat")
 	private String getFormatedDate(String formatStr) {
-		SimpleDateFormat format = new SimpleDateFormat(formatStr);
+		SimpleDateFormat format = new SimpleDateFormat(formatStr); //TODO consider local
 		String dateStr = format.format(date);
 		return dateStr;
 	}
@@ -113,7 +113,7 @@ public class Insperation {
 		
 		// Assign text to new view
 		newContentForInnovation.setText(getContent());
-		newDateForInnovation.setText(getFormatedDate());
+		newDateForInnovation.setText(getFormatedDate()+"  "+getId());
 
 		// Assign padding, and random background colour
 		Random rnd = new Random();
@@ -134,22 +134,8 @@ public class Insperation {
 		return viewRtn;
 	}
 
-	/**
-	 * Tests
-	 */
-	public static void main(String[] args) {
-		Insperation mi = new Insperation("hi");
-		System.out.println(mi);
-
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date myDate2;
-		try {
-			myDate2 = dateFormat2.parse("2010-09-13 22:36:01");
-			Insperation mi2 = new Insperation(myDate2, "hi2");
-			System.out.println(mi2);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+	public String toCopyString() {
+		return getFormatedDate() + "\n" + getContent();
 	}
 
 }

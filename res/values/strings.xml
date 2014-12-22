@@ -10,5 +10,10 @@
     <string name="button_clear"> X </string>
     <string name="button_db">Database!</string>
     <string name="output_text">[output here]</string>
+    <string name="longclick_copy">Copy</string>
+    <string name="longclick_remove">Delete</string>
+    <string name="error_delete_database_item">Delete failed, please try later</string>
+    <string name="succeed_delete_database_item">Item deleted</string>
+    <string name="succeed_copy_item">Copied to Clip Board</string>
 
 </resources>
