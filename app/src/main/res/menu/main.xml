@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wangzhenyi.miracleinsperation.MainActivity" >
+
+
+    <item
+        android:id="@+id/action_deleted_items"
+        android:orderInCategory="100"
+        android:title="@string/action_deleted_items"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_multi_copy"
+        android:orderInCategory="100"
+        android:title="@string/longclick_multi_copy"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_multi_delete"
+        android:orderInCategory="100"
+        android:title="@string/action_multi_delete"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_generate_samples"
+        android:orderInCategory="100"
+        android:title="@string/action_generate_samples"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+</menu>

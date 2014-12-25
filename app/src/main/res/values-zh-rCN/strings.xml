@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">神奇记录仪</string>
+    <string name="action_settings">设置</string>
+    <string name="action_deleted_items">垃圾箱</string>
+    <string name="edit_innovation">这里输入灵感</string>
+    <string name="button_add">添加</string>
+    <string name="longclick_copy">复制</string>
+    <string name="longclick_remove">删除</string>
+    <string name="error_delete_database_item">抱歉，删除失败…请稍后重试</string>
+    <string name="succeed_delete_database_item">删除成功</string>
+    <string name="succeed_copy_item">已复制到剪贴板</string>
+    <string name="succeed_clear_data">数据已清空</string>
+    <string name="title_activity_settings">设置</string>
+    <string name="language_default">默认语言</string>
+    <string name="language_CN">简体中文</string>
+    <string name="language_EN">英文</string>
+
+    <string name="settings_show_id">显示id</string>
+
+    <string name="title_activity_deleted_items">已删条目</string>
+    <string name="button_clear_data">清空数据库</string>
+    <string name="longclick_multi_copy">连续复制</string>
+    <string name="button_end_multi_copy">结束复制</string>
+    <string name="button_end_multi_delete">结束删除</string>
+    <string name="action_multi_delete">连续删除</string>
+    <string name="action_generate_samples">生成样本数据</string>
+
+</resources>

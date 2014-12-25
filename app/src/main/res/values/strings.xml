@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Miracle Insperation</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_deleted_items">Deleted items</string>
+    <string name="button_clear_data">Clear data</string>
+    <string name="edit_innovation">Innocation here</string>
+    <string name="button_add">Add</string>
+    <string name="longclick_copy">Copy</string>
+    <string name="longclick_remove">Delete</string>
+    <string name="error_delete_database_item">Delete failed, please try later</string>
+    <string name="succeed_delete_database_item">Item deleted</string>
+    <string name="succeed_copy_item">Copied to Clip Board</string>
+    <string name="succeed_clear_data">Database cleared</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="language_default">Default</string>
+    <string name="language_CN">Chinese Simplified</string>
+    <string name="language_EN">English</string>
+    <string name="settings_show_id">Show id</string>
+    <string name="title_activity_deleted_items">Deleted Items</string>
+    <string name="longclick_multi_copy">Multi-copy</string>
+    <string name="button_end_multi_copy">Finish multi-copy</string>
+    <string name="button_end_multi_delete">Finish</string>
+    <string name="action_multi_delete">Multi-delete</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="action_generate_samples">Generate sample</string>
+
+</resources>

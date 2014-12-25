@@ -1,0 +1,5 @@
+D:\AndroidStudioProjects\MiracleInsperation\app\build\intermediates\classes\debug
+D:\AndroidStudioProjects\MiracleInsperation\app\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-c8e3c85d3ba897e34a46302d0b436469be09ec9a.jar
+D:\AndroidStudioProjects\MiracleInsperation\app\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-b53bb3c05d21566c426837566160f22324d622ed.jar
+D:\AndroidStudioProjects\MiracleInsperation\app\build\intermediates\pre-dexed\debug\classes-59103a9cb6fd11caf159f27e53ddd18540f51fcb.jar
+D:\AndroidStudioProjects\MiracleInsperation\app\build\intermediates\pre-dexed\debug\classes-6701f73b683ad36022306847d1f1a1864a653965.jar

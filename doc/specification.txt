@@ -1,0 +1,74 @@
+Miracle Inspirations
+
+[2014-12-25 v0.4]
+Migrated to Android Studio
+
+What's done
+	Multi-delete and copy (draft)
+	New view for deleted items
+	Dynamic multi-language change
+	Auto-genarate samples
+
+Postponed
+	Widgets
+	Gesture support
+	Voice record
+	Notification memo
+
+[2014-12-22 v0.3]
+Add delete and copy functions
+	redesigned with ListView
+	Added long press topup menu
+		allowed delete single
+		allowed copy single content
+
+Gesture support, voice record and a new display have been postponed.
+
+
+[2014/12/19 v0.21]
+Bug fix
+	time display error 
+		fix: date format int->long
+		& in Insperation.getFormatedDate(), new Date()->date
+
+[2014/12/15 v0.2]
+Use database.
+
+table structure - miracle_insperations {
+	INT PK AI
+	DATE TIMEStAMP
+	CONTENT VARCHAR(5000)
+	DELETED BOOL
+	
+More TODO:
+	Redesign the views for innovation
+}
+
+
+[2014/12/07 v0.1]
+To record inspirations (mainly texts) with date stamped.
+
+Target group: me alone.
+
+Specification:
+
+--------------------
+|Input    | Button |
+--------------------
+|List of recordings|
+|                  |
+|                  |
+--------------------
+
+Type in input -> press button -> recording shown
+
+recording is like£º
+
+------------------
+|text  text  text|
+|(date time)     |
+------------------
+
+This is version 0.1. The user can only type and add a recording. They 
+cannot delete or modify any recording. The added recording will be 
+shown at once.

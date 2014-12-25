@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/button_end_multi_copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_end_multi_copy"
+        android:onClick="endMultiCopy"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/button_end_multi_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_end_multi_delete"
+        android:onClick="endMultiDelete"
+        android:visibility="gone"/>
+	
+    <!-- LinearLayout
+	        android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal">
+		    
+	    <Button
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/button_db"
+			android:onClick="database"/>
+
+	    <Button
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/button_clear"
+			android:onClick="clearView"/>
+    
+    </LinearLayout-->
+    
+    <!--ScrollView
+        android:id="@+id/scroll_view"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:scrollbars="vertical"
+		android:fadingEdge="vertical"
+		android:fillViewport="true"-->
+	    
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+		    android:layout_height="0dp"
+		    android:layout_weight="1"
+		    android:background="#eeeeee"
+		    android:orientation="vertical">
+		    
+	        	<!--TextView
+	        	    android:id="@+id/output"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/output_text"/-->
+	        
+			<ListView 
+	            android:id="@+id/innovation_list"
+			    android:layout_width="match_parent"   
+    	        android:layout_height="wrap_content"
+    	        android:transcriptMode="alwaysScroll"
+    	        />
+        
+        </LinearLayout>
+    <!--/ScrollView-->
+    
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal">
+    
+		    <EditText android:id="@+id/edit_innovation"
+		   		android:layout_width="0dp"
+		    	android:layout_height="wrap_content"
+		    	android:layout_weight="1"
+        		android:textColor="#666666"
+		    	android:hint="@string/edit_innovation"/>
+	
+		    <Button 
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="match_parent"
+		    	android:text="@string/button_add"
+		    	android:onClick="addInsperation"/>
+	</LinearLayout>
+	
+</LinearLayout><!-- From: file:/D:/AndroidStudioProjects/MiracleInsperation/app/src/main/res/layout/activity_main.xml -->

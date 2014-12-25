@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/D:/AndroidStudioProjects/MiracleInsperation/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values-zh-rCN/values.xml -->
+    <eat-comment/>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"转到主屏幕"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"转到上一层级"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"更多选项"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"完成"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"查看全部"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"选择应用"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"清除查询"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"搜索查询"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"搜索"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"提交查询"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"语音搜索"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"分享方式"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"通过%s分享"</string>
+    <!-- From: file:/D:/AndroidStudioProjects/MiracleInsperation/app/src/main/res/values-zh-rCN/strings.xml -->
+    <eat-comment/>
+    <string name="action_deleted_items">垃圾箱</string>
+    <string name="action_generate_samples">生成样本数据</string>
+    <string name="action_multi_delete">连续删除</string>
+    <string name="action_settings">设置</string>
+    <string name="app_name">神奇记录仪</string>
+    <string name="button_add">添加</string>
+    <string name="button_clear_data">清空数据库</string>
+    <string name="button_end_multi_copy">结束复制</string>
+    <string name="button_end_multi_delete">结束删除</string>
+    <string name="edit_innovation">这里输入灵感</string>
+    <string name="error_delete_database_item">抱歉，删除失败…请稍后重试</string>
+    <string name="language_CN">简体中文</string>
+    <string name="language_EN">英文</string>
+    <string name="language_default">默认语言</string>
+    <string name="longclick_copy">复制</string>
+    <string name="longclick_multi_copy">连续复制</string>
+    <string name="longclick_remove">删除</string>
+    <string name="settings_show_id">显示id</string>
+    <string name="succeed_clear_data">数据已清空</string>
+    <string name="succeed_copy_item">已复制到剪贴板</string>
+    <string name="succeed_delete_database_item">删除成功</string>
+    <string name="title_activity_deleted_items">已删条目</string>
+    <string name="title_activity_settings">设置</string>
+</resources>
