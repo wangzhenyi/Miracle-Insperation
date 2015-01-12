@@ -11,16 +11,11 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_multi_copy"
+        android:id="@+id/action_select"
         android:orderInCategory="100"
-        android:title="@string/longclick_multi_copy"
+        android:title="@string/action_select"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/action_multi_delete"
-        android:orderInCategory="100"
-        android:title="@string/action_multi_delete"
-        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_generate_samples"

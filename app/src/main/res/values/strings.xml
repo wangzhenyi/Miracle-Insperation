@@ -15,16 +15,34 @@
     <string name="succeed_clear_data">Database cleared</string>
     <string name="title_activity_settings">Settings</string>
     <string name="language_default">Default</string>
-    <string name="language_CN">Chinese Simplified</string>
+    <string name="language_CN">简体中文</string>
     <string name="language_EN">English</string>
     <string name="settings_show_id">Show id</string>
     <string name="title_activity_deleted_items">Deleted Items</string>
-    <string name="longclick_multi_copy">Multi-copy</string>
     <string name="button_end_multi_copy">Finish multi-copy</string>
     <string name="button_end_multi_delete">Finish</string>
-    <string name="action_multi_delete">Multi-delete</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="action_generate_samples">Generate sample</string>
 
+    <string name="noti_copied">Copied %n item(s)</string>
+    <string name="button_export_data">Export data as file</string>
+    <string name="button_import_data">Import data</string>
+
+    <string name="action_select">Select</string>
+    <string name="select_all">Select all</string>
+    <string name="select_none">Select none</string>
+    <string name="select_copy">Copy</string>
+    <string name="select_cancel">Cancel</string>
+    <string name="noti_deleted">Deleted %n records</string>
+
+    <string name="select_delete">Delete</string>
+
+    <string name="noti_export_file_not_found">Could not create file in SD card, please make sure it is writable</string>
+    <string name="noti_export_ioexception">Export failed, please check your SD card</string>
+    <string name="noti_export_succeed">Export succeed, file saved as %s</string>
+    <string name="noti_no_backup_file">There is no backup file yet, export before import</string>
+    <string name="dialog_choose_backup_file">Please choose a backup file</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_import">Import</string>
+    <string name="noti_backup_items_affected">%d items imported</string>
+    <string name="noti_backup_empty_file">Failed to import data, file is either empty or damaged.</string>
 </resources>

@@ -1,3 +1,8 @@
+/**
+ * Created by Zhenyi Wang.
+ * Last modified on 12 Jan 2015.
+ */
+
 package com.wangzhenyi.miracleinsperation;
 
 import android.os.Bundle;
@@ -13,6 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
+/**
+ * This class is used by the MiracleInsperation App to display deleted records
+ */
 public class DeletedItemsActivity extends ActionBarActivity {
 	private MiracleInsperationDbHelper mDbHelper;
 	private ListView mInsperationList;
@@ -80,22 +88,4 @@ public class DeletedItemsActivity extends ActionBarActivity {
 		getWindow().setTitle(getString(R.string.title_activity_deleted_items));
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.deleted_items, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-//		int id = item.getItemId();
-//		if (id == R.id.action_settings) {
-//			return true;
-//		}
-		return super.onOptionsItemSelected(item);
-	}
 }

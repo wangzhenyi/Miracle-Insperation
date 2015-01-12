@@ -31,7 +31,6 @@
         android:layout_height="0dp"
         android:visibility="gone"
     	/>
-        />
 
     <TextView
         android:id="@+id/insperation_date_long"

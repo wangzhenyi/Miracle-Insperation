@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -36,6 +37,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Vector;
 
+/**
+ * This class is used by the MiracleInsperation App to display the main view
+ */
 public class MainActivity extends Activity implements View.OnClickListener {
     private MiracleInsperationDbHelper mDbHelper;
     private EditText mInsperationEditText;
@@ -52,9 +56,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public static Vector<Activity> activityList;
     public static boolean needRefresh = false;
     private static boolean mBoolShowId = false;
-    private boolean mInCopyMode = false;
-    private boolean mInDeleteMode = false;
+    private boolean mInSelectMode = false;
     private ClipboardManager clipboard;
+    private boolean[] mSelection;
+    private Button mBtSelectAll;
+    private Button mBtSelectNone;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,32 +80,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mInsperationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mInCopyMode) {
-                    appendItemViewToClipboard(view);
+                if (mInSelectMode) {
+//                    appendItemViewToClipboard(view);
+                    boolean itemSeleted = !mSelection[i];
+
+                    mSelection[i] = itemSeleted;
+
+                    if(itemSeleted){
+                        setViewSelected(view);
+                    } else {
+                        setViewNotSelected(view);
+                    }
+
+                    //TODO when already selects all change button selectAll to selectNone, vice versa
                 }
 
-                if(mInDeleteMode) {
-                    deleteItem((long)i,false);
-                }
+//                if(mInDeleteMode) {
+//                    deleteItem((long)i,false);
+//                }
             }
         });
 
         SharedPreferences sharedPref = getSharedPreferences(MainActivity.SHARED_PEREFENCE_DAFAULT, Context.MODE_PRIVATE);
         mBoolShowId = sharedPref.getBoolean(PREFERENCE_SHOW_ID, false);
 
+        mSelection = null;
 
         mItemArrayList = new ArrayList<HashMap<String, String>>();
 
         mInsperationEditText.setOnClickListener(this);
 
         // Read items from database
-        Vector<Insperation> insperations = mDbHelper.getInsperations();
+        Vector<Insperation> insperations = mDbHelper.getDisplayableInsperations();
 
         // Display items
         displayInsperations(insperations);
 
         activityList = new Vector<Activity>();
         activityList.add(this);
+
+        // Binds select buttons
+        mBtSelectAll = (Button) findViewById(R.id.select_all);
+        mBtSelectNone = (Button) findViewById(R.id.select_none);
 
         // Actions on long click ListView
         // mInsperationList.setOnItemLongClickListener(new
@@ -115,17 +138,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // });
     }
 
-    private void appendItemViewToClipboard(View view) {
-        Insperation insperation = getInsperationByItemView(view);
-        appendClipboard(insperation.getFormatedDate("HH:mm") + "\n" + insperation.getContent());
-    }
-
-    private void appendClipboard(String s) {
-        StringBuilder sb = new StringBuilder(getClipboardString());
-        sb.append("\n");
-        sb.append("\n");
-        sb.append(s);
-        setClipboard(sb.toString());
+    private void setViewSelected(View view) {
+        view.setBackgroundColor(Color.BLUE);
     }
 
     private Insperation getInsperationByItemView(View view) {
@@ -136,8 +150,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Date date = new Date(Long.parseLong(dateLongStr));
         int id = Integer.parseInt(idStr);
 
-        Insperation insperation = new Insperation(id, date, content);
-        return insperation;
+        return new Insperation(id, date, content);
     }
 
     private void setLanguage() {
@@ -176,7 +189,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void refreshInsperations() {
-        displayInsperations(mDbHelper.getInsperations());
+        displayInsperations(mDbHelper.getDisplayableInsperations());
     }
 
     /* Displays a list of insperations on screen */
@@ -221,6 +234,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
+
+                if(mInSelectMode) {
+                    boolean itemSelected = mSelection[position];
+                    if (itemSelected) {
+                        setViewSelected(view);
+                    } else {
+                        setViewNotSelected(view);
+                    }
+                } else {
+                    setViewNotSelected(view);
+                }
+
                 return view;
             }
         };
@@ -233,6 +258,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Scrolls to the bottom
         scrollToBottom();
+    }
+
+    private void setViewNotSelected(View view) {
+        view.setBackgroundColor(Color.parseColor("#00000000"));
     }
 
     /* Scrolls the list to bottom */
@@ -267,11 +296,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent intent2 = new Intent(this, SettingsActivity.class);
                 startActivity(intent2);
                 return true;
-            case R.id.action_multi_copy:
-                enterMultiCopyMode();
-                return true;
-            case R.id.action_multi_delete:
-                enterMultiDeleteMode();
+            case R.id.action_select:
+                enterSelectMode();
                 return true;
             case R.id.action_generate_samples:
                 generateSample();
@@ -313,34 +339,134 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void enterMultiCopyMode() {
+    private void enterSelectMode() {
         setClipboard("");
-        Button bt = (Button) findViewById(R.id.button_end_multi_copy);
-        bt.setVisibility(View.VISIBLE);
-        mInCopyMode = true;
-        getWindow().setTitle(getString(R.string.longclick_multi_copy));
+        View selectPanel = findViewById(R.id.panel_select);
+        selectPanel.setVisibility(View.VISIBLE);
+        mInSelectMode = true;
+//        getWindow().setTitle(getString(R.string.longclick_multi_copy));
+
+        int itemNumber = mItemArrayList.size();
+        mSelection = new boolean[itemNumber];
+        for(int i = 0; i < itemNumber; i++) {
+            mSelection[i] = false;
+        }
     }
 
-    public void endMultiCopy(View view) {
-        Button bt = (Button) findViewById(R.id.button_end_multi_copy);
-        bt.setVisibility(View.GONE);
-        mInCopyMode = false;
-        getWindow().setTitle(getString(R.string.app_name));
+    public void leaveSelectMode(View view) {
+        // Hide buttons
+        View selectPanel = findViewById(R.id.panel_select);
+        selectPanel.setVisibility(View.GONE);
+        mInSelectMode = false;
+        mSelection = null;
+
+//        getWindow().setTitle(getString(R.string.app_name));
     }
 
-    private void enterMultiDeleteMode() {
-        Button bt = (Button) findViewById(R.id.button_end_multi_delete);
-        bt.setVisibility(View.VISIBLE);
-        mInDeleteMode = true;
-        getWindow().setTitle(getString(R.string.action_multi_delete));
+    // Selects all items in select mode
+    public void selectAll(View view) {
+        // Sets all select states to true
+        for(int i = 0; i < mSelection.length; i++) {
+            mSelection[i] = true;
+        }
+
+        mBtSelectAll.setVisibility(View.GONE);
+        mBtSelectNone.setVisibility(View.VISIBLE);
+
+        mAdapter.notifyDataSetChanged();
     }
 
-    public void endMultiDelete(View view) {
-        Button bt = (Button) findViewById(R.id.button_end_multi_delete);
-        bt.setVisibility(View.GONE);
-        mInDeleteMode = false;
-        getWindow().setTitle(getString(R.string.app_name));
+    // Unselects all items in select mode
+    public void selectNone(View view) {
+        // Sets all select states to true
+        for(int i = 0; i < mSelection.length; i++) {
+            mSelection[i] = false;
+        }
+
+        // Changes selectAll button to selectNone
+        mBtSelectAll.setVisibility(View.VISIBLE);
+        mBtSelectNone.setVisibility(View.GONE);
+
+        mAdapter.notifyDataSetChanged();
     }
+
+
+    public void deleteSelection(View view) {
+        int count = 0;
+
+        // Deletes content
+        for(int i = mSelection.length - 1; i >= 0 ; i--) {
+            boolean isSelected = mSelection[i];
+
+            if(isSelected) {
+                // Deletes the corresponding item
+                deleteItem((long) i, false);
+
+                //TODO optimise multi-delete
+
+                count++;
+            }
+        }
+
+        // Displays a notification
+        if(count > 0) {
+            String notification = getResources().getString(R.string.noti_deleted);
+            notification = notification.replace("%n", count+"");
+            showShortToast(notification);
+        }
+
+        leaveSelectMode(null);
+
+    }
+    public void copySelection(View view) {
+
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+
+        // Copy contents
+        for(int i = 0; i < mSelection.length; i++) {
+            boolean isSelected = mSelection[i];
+            Insperation insperation;
+
+            if(isSelected) {
+                insperation = getInsperationByIdInArray(i);
+                sb.append(insperation.getFormatedDate("[yyyy-MM-dd HH:mm]"));
+                sb.append("\n");
+                sb.append(insperation.getContent());
+                sb.append("\n\n");
+
+                count++;
+            }
+        }
+
+        // Removes the last new line character and copies to clipboard
+        if(count > 0) {
+            sb.delete(sb.length() - 2, sb.length());
+            setClipboard(sb.toString());
+
+            // Displays a notification
+            String notification = getResources().getString(R.string.noti_copied);
+            notification = notification.replace("%n", count+"");
+            showShortToast(notification);
+        }
+
+        leaveSelectMode(null);
+
+    }
+
+//    private void enterMultiDeleteMode() {
+//        Button bt = (Button) findViewById(R.id.button_end_multi_delete);
+//        bt.setVisibility(View.VISIBLE);
+//        mInDeleteMode = true;
+//        getWindow().setTitle(getString(R.string.action_multi_delete));
+//    }
+//
+//    public void endMultiDelete(View view) {
+//        Button bt = (Button) findViewById(R.id.button_end_multi_delete);
+//        bt.setVisibility(View.GONE);
+//        mInDeleteMode = false;
+//        getWindow().setTitle(getString(R.string.app_name));
+//    }
 
     /* Removes an item both from database and from screen */
     private void deleteItem(long idInArrArr, boolean showToast) {
@@ -429,8 +555,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Date date = new Date(Long.parseLong(dateLongStr));
         int id = Integer.parseInt(idStr);
 
-        Insperation insperation = new Insperation(id, date, content);
-        return insperation;
+        return new Insperation(id, date, content);
     }
 
     /* Display a short toast */

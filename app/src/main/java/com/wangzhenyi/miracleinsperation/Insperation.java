@@ -1,3 +1,8 @@
+/**
+ * Created by Zhenyi Wang.
+ * Last modified on 12 Jan 2015.
+ */
+
 package com.wangzhenyi.miracleinsperation;
 
 import android.annotation.SuppressLint;
@@ -13,7 +18,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Used to present an insperation inputed by the user
+ * Used to present an insperation input by the user
  */
 public class Insperation {
 	private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd\n HH:mm";
@@ -21,7 +26,61 @@ public class Insperation {
 	public final static int ID_UNIMPLEMENTED = -1;
 	private Date date;
 	private String content;
-	
+    private int deleted;
+
+    public static final int NOT_DELETED = 0;
+    public static final int DELETED = 1;
+
+
+    /**
+     * Constructor with the content as parameter, use current date as default
+     * @param content content
+     */
+    public Insperation(String content) {
+        this(ID_UNIMPLEMENTED, new Date(), content);
+    }
+
+    /**
+     * Constructor with both content and date as parameters
+     * @param date creation date
+     * @param content content of record
+     */
+    public Insperation(Date date, String content) {
+        this(ID_UNIMPLEMENTED, date, content);
+    }
+
+    /**
+     * Constructor with id, content and date as parameters
+     * @param id id of record
+     * @param date creation date
+     * @param content content of record
+     */
+    public Insperation(int id, Date date, String content) {
+        this(id, date, content, NOT_DELETED);
+    }
+
+    /**
+     * Constructor with id, content, date and deleted state as parameters
+     * @param id id of record
+     * @param date creation date
+     * @param content content of record
+     * @param deleted delete state
+     */
+    public Insperation(int id, Date date, String content,int deleted) {
+        setId(id);
+        setDate(date);
+        setContent(content);
+        setDeleted(deleted);
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
+    }
+
 	public int getId() {
 		return id;
 	}
@@ -46,98 +105,42 @@ public class Insperation {
 		this.content = content;
 	}
 
+    /**
+     * Returns a string representing the date, with a specific format e.g.
+     * default "yyyy-MM-dd HH:mm"
+     *
+     *  @param formatStr the format string to represent date
+     * @return a string representation of the date
+     */
+    @SuppressLint("SimpleDateFormat")
+    public String getFormatedDate(String formatStr) {
+        //TODO consider Local when format date in Insperation.java
+        return Util.formatDate(date, formatStr);
+    }
 
-	/**
-	 * Constructor with the content as parameter, use current date as default
-	 */
-	public Insperation(String content) {
-		this(ID_UNIMPLEMENTED, new Date(), content);
-	}
-
-	/**
-	 * Constructor with both content and date as parameter
-	 */
-	public Insperation(Date date, String content) {
-		this(ID_UNIMPLEMENTED, date, content);
-	}
-
-	public Insperation(int id, Date date, String content) {
-		setId(id);
-		setDate(date);
-		setContent(content);
-	}
-
-	/* Returns a String representation of the date with the default format */
+    /**
+     * Returns a String representation of the date with the default format
+     * @return default format of date
+     */
 	public String getFormatedDate() {
 		return getFormatedDate(DEFAULT_DATE_FORMAT);
 	}
-	
-	/**
-	 * Returns a string representing the date, with a specific format e.g.
-	 * default "yyyy-MM-dd HH:mm"
-	 */
-	@SuppressLint("SimpleDateFormat")
-	public String getFormatedDate(String formatStr) {
-		SimpleDateFormat format = new SimpleDateFormat(formatStr); //TODO consider local
-		String dateStr = format.format(date);
-		return dateStr;
-	}
 
-	/**
-	 * Convert to a string representation
-	 */
+    /**
+     * Converts to a string representation
+     * @return a string representation of the record
+     */
 	public String toString() {
-		String formatedDate = getFormatedDate(DEFAULT_DATE_FORMAT);
-		return "[" + formatedDate + "]" + content;
+        return getId() + "," + getDate().getTime() + "," +getContent() + "," + getDeleted();
 	}
 
-	/**
-	 * Returns a View representation to be displayed LinearLayout with 
-	 * two views inside
-	 */
-	@SuppressLint("NewApi")
-	public View toView(Context context) {
-		// LinearLayout 
-		LinearLayout viewRtn = new LinearLayout(context);
-
-		// set sizes, width wrap content, height wrap content
-		LayoutParams size = new LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		
-		viewRtn.setLayoutDirection(LinearLayout.VERTICAL); //TODO api>=17
-		viewRtn.setLayoutParams(size);
-		
-		// Create new views
-		TextView newContentForInnovation = new TextView(context);
-		TextView newDateForInnovation = new TextView(context);
-		
-		// Assign text to new view
-		newContentForInnovation.setText(getContent());
-		newDateForInnovation.setText(getFormatedDate()+"  "+getId());
-
-		// Assign padding, and random background colour
-		Random rnd = new Random();
-		int colour = Color.argb(255, rnd.nextInt(100) + 155,
-				rnd.nextInt(100) + 155, rnd.nextInt(100) + 155);
-
-		newDateForInnovation.setTextColor(Color.argb(255, 100, 100, 100));
-		newDateForInnovation.setTextSize(10);
-		newDateForInnovation.setBackgroundColor(colour);
-		newDateForInnovation.setPadding(15, 15, 15, 0);
-
-		newContentForInnovation.setBackgroundColor(colour);
-		newContentForInnovation.setPadding(15, 5, 15, 25);
-
-		viewRtn.addView(newDateForInnovation);
-		viewRtn.addView(newContentForInnovation);
-		
-		return viewRtn;
-	}
-
-	public String toCopyString() {
-		return getFormatedDate() + "\n" + getContent();
-	}
-
+    /**
+     * Converts the record to a string used to be copied to the clip board
+     * formatted as
+     *  [yyyy-MM-dd HH:mm]
+     *  CONTENT
+     * @return a formatted representation of the record to be copied
+     */
 	public String toStringToCopy() {
 		return getFormatedDate("yyyy-MM-dd HH:mm") + "\n" + content;
 	}

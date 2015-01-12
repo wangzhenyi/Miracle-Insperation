@@ -1,8 +1,15 @@
+/**
+ * Created by Zhenyi Wang.
+ * Last modified on 12 Jan 2015.
+ */
+
 package com.wangzhenyi.miracleinsperation;
 
 import android.provider.BaseColumns;
 
-/* Contract class for the Miracle Insperation app */
+/**
+ *  Contract class for the Miracle Insperation app
+ */
 public final class MiracleInsperationContract {
 	public MiracleInsperationContract() {
 	}

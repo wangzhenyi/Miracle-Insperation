@@ -1,5 +1,18 @@
 Miracle Inspirations
 
+[2015-01-12 v0.5]
+New icon & license
+
+Export data as file and import
+	Issues met
+		Issue 1: Could not create file in SD card (simulated) folder
+		Solution 1: Not sure how, but sovled. Might be related to usb debug or usb connection mode
+		Issue 2: Could not find files in Windoes File Explorer
+		Solution 2: Due to usb debug, files are accessabile in DDMS File Explorer. Refer to http://stackoverflow.com/questions/13394870
+
+Imporved multi-delete and copy
+
+
 [2014-12-25 v0.4]
 Migrated to Android Studio
 

@@ -4,22 +4,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button_end_multi_copy"
+    <LinearLayout
+        android:id="@+id/panel_select"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_end_multi_copy"
-        android:onClick="endMultiCopy"
-        android:visibility="gone"/>
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/select_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_all"
+                android:onClick="selectAll"
+                />
 
-    <Button
-        android:id="@+id/button_end_multi_delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_end_multi_delete"
-        android:onClick="endMultiDelete"
-        android:visibility="gone"/>
-	
+            <Button
+                android:id="@+id/select_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_none"
+                android:visibility="gone"
+                android:onClick="selectNone"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_copy"
+                android:onClick="copySelection"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_delete"
+                android:onClick="deleteSelection"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_cancel"
+                android:onClick="leaveSelectMode"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
     <!-- LinearLayout
 	        android:layout_width="match_parent"
 		    android:layout_height="wrap_content"

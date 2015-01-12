@@ -19,9 +19,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="80dp"
             android:text="@string/settings_show_id"
         />
+
+        <!--Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEBUG"
+            android:onClick="debug"
+        /-->
 
         <Button
             android:id="@+id/button_language_DEFAULT"
@@ -47,12 +54,28 @@
             android:onClick="toEnglish"
         />
 
+        <Button
+            android:id="@+id/button_save_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="@string/button_export_data"
+            android:onClick="exportData"
+            />
+
+        <Button
+            android:id="@+id/button_load_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_import_data"
+            android:onClick="importData"
+            />
 
         <Button
             android:id="@+id/button_clear_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="10dp"
             android:background="#ff0000"
             android:text="@string/button_clear_data"
             android:onClick="clearData"

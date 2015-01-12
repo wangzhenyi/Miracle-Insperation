@@ -1,3 +1,8 @@
+/**
+ * Created by Zhenyi Wang.
+ * Last modified on 12 Jan 2015.
+ */
+
 package com.wangzhenyi.miracleinsperation;
 
 import android.content.ContentValues;
@@ -12,7 +17,9 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
 
-/* Database helperfor the Miracle Insperation app */
+/**
+ * Database helperfor the Miracle Insperation app
+ */
 public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
@@ -26,7 +33,7 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
                     InsperatioinEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     InsperatioinEntry.COLUMN_NAME_DATE + LONG_TYPE + COMMA_SEP +
                     InsperatioinEntry.COLUMN_NAME_CONTENT + TEXT_TYPE + COMMA_SEP +
-                    InsperatioinEntry.COLUMN_NAME_DELETED + INTEGER_TYPE + " DEFAULT 0" +
+                    InsperatioinEntry.COLUMN_NAME_DELETED + INTEGER_TYPE + " DEFAULT " + Insperation.NOT_DELETED +
                     " )";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + InsperatioinEntry.TABLE_NAME;
@@ -78,7 +85,7 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
     }
 
     /* Selects all the visible items from database */
-    public Vector<Insperation> getInsperations() {
+    public Vector<Insperation> getDisplayableInsperations() {
         Vector<Insperation> insperations = new Vector<Insperation>();
 
         // Gets the data repository in write mode
@@ -92,9 +99,10 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
 
         // Sort order
         String sortOrder = InsperatioinEntry.COLUMN_NAME_DATE; // + " DESC";
+//        String sortOrder = InsperatioinEntry._ID; // + " DESC";
 
         String whereColumns = InsperatioinEntry.COLUMN_NAME_DELETED + "=?";
-        String[] whereValues = {"0"};
+        String[] whereValues = {Insperation.NOT_DELETED+""};
 
         Cursor c = db.query(InsperatioinEntry.TABLE_NAME, // The table to query
                 projection, // The columns to return
@@ -134,7 +142,7 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
     public int deleteInsperation(int id) {
         // Create a new map of value
         ContentValues values = new ContentValues();
-        values.put(InsperatioinEntry.COLUMN_NAME_DELETED, "1");
+        values.put(InsperatioinEntry.COLUMN_NAME_DELETED, Insperation.DELETED);
 
         String whereClause = InsperatioinEntry._ID + "=?";
         String[] whereArgs = {id + ""};
@@ -163,6 +171,10 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    public long addInsperation(Insperation insperation) {
+        return addInsperation(insperation, false);
+    }
+
     private String getRandomString() {
         int num = samples.length;
         int ran = new Random().nextInt(num);
@@ -170,7 +182,7 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
     }
 
     /* Inserts an item, assigning an id to the item object */
-    public void addInsperation(Insperation insperation) {
+    public long addInsperation(Insperation insperation, boolean useDeleted) {
         // Gets the data repository in write mode
         SQLiteDatabase db = getWritableDatabase();
 
@@ -180,11 +192,15 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
                 insperation.getContent());
         values.put(InsperatioinEntry.COLUMN_NAME_DATE, insperation.getDate()
                 .getTime());
+        if(useDeleted) {
+            values.put(InsperatioinEntry.COLUMN_NAME_DELETED, insperation.getDeleted());
+        }
+
 
         // Insert the new row, returning the primary key value of the new row
         // long newRowId;
         // newRowId = db.insert(InsperatioinEntry.TABLE_NAME, null, values);
-        db.insert(InsperatioinEntry.TABLE_NAME, null, values);
+        long result = db.insert(InsperatioinEntry.TABLE_NAME, null, values);
 
         // Selects the new id and assigns to the item object
         Cursor cursor = db.rawQuery("select LAST_INSERT_ROWID() ", null);
@@ -194,6 +210,8 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
         }
 
         db.close();
+
+        return result;
     }
 
     /* Selects all the visible items from database */
@@ -213,7 +231,7 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
         String sortOrder = InsperatioinEntry.COLUMN_NAME_DATE + " DESC";
 
         String whereColumns = InsperatioinEntry.COLUMN_NAME_DELETED + "=?";
-        String[] whereValues = {"1"};
+        String[] whereValues = {Insperation.DELETED+""};
 
         Cursor c = db.query(InsperatioinEntry.TABLE_NAME, // The table to query
                 projection, // The columns to return
@@ -249,5 +267,71 @@ public class MiracleInsperationDbHelper extends SQLiteOpenHelper {
         return insperations;
     }
 
+    public Vector<Insperation> exportData() {
+        Vector<Insperation> insperations = new Vector<Insperation>();
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Defines a projection that specifies the queried columns from
+        // the database
+        String[] projection = {InsperatioinEntry._ID,
+                InsperatioinEntry.COLUMN_NAME_DATE,
+                InsperatioinEntry.COLUMN_NAME_CONTENT,
+                InsperatioinEntry.COLUMN_NAME_DELETED};
+
+        Cursor c = db.query(InsperatioinEntry.TABLE_NAME, // The table to query
+                projection, // The columns to return
+                null, // The columns for the WHERE clause
+                null, // The values for the WHERE clause
+                null, // don't group the rows
+                null, // don't filter by tow groups
+                null  // The sort order
+        );
+
+        if (!c.moveToFirst()) {
+            db.close();
+            return insperations;
+        }
+
+        // Adds items to vectors
+        do {
+            int id = c.getInt(c.getColumnIndexOrThrow(InsperatioinEntry._ID));
+            long dateLong = c.getLong(c
+                    .getColumnIndexOrThrow(InsperatioinEntry.COLUMN_NAME_DATE));
+            Date date = new Date(dateLong);
+            String content = c
+                    .getString(c
+                            .getColumnIndexOrThrow(InsperatioinEntry.COLUMN_NAME_CONTENT));
+            int deleted = c.getInt(c.getColumnIndexOrThrow(InsperatioinEntry.COLUMN_NAME_DELETED));
+
+            Insperation insperation = new Insperation(id, date, content, deleted);
+            insperations.add(insperation);
+        } while (c.moveToNext());
+
+        // Closes cursor and repository
+        c.close();
+        db.close();
+
+        return insperations;
+    }
+
+    public long importData(Vector<Insperation> insperations) {
+        if(insperations == null || insperations.isEmpty()) {
+            return -1;
+        }
+
+        long count = 0L;
+
+        for(Insperation insperation : insperations) {
+            long result = addInsperation(insperation, true);
+
+            if(result>=0)
+                count++;
+            //TODO optimise multi insert
+        }
+
+        return count;
+    }
 
 }
